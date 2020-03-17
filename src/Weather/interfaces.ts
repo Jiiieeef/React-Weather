@@ -24,6 +24,6 @@ export interface IInfoWeather {
 
 export interface ICurrentWeather {
   name: string;
-  weather: IWeather[];
+  weather: IWeather;
   infoWeather: IInfoWeather;
 }

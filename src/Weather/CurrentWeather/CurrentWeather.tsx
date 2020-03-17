@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { ICity } from '../interfaces';
 import { getCurrentWeather } from '../../services/WeatherService';
 import { ICurrentWeather } from '../interfaces';
+import { Icon } from "../Icon/Icon";
 
 interface CurrentWeatherProps {
   currentCity?: ICity;
@@ -28,20 +29,26 @@ class CurrentWeather extends Component<CurrentWeatherProps, CurrentWeatherState>
     return parseFloat('' + (parseInt(tempKelvin, 10) - 273.15)).toFixed(2);
   }
 
-  render() {
-    const paragraph = this.props.currentCity
-      ? <p>Current city is: {this.props?.currentCity?.nm}</p>
-      : <p>Select a city!</p>;
+  renderNoCity() {
+    return <p>Select a city!</p>;
+  }
 
-    let temperature;
-    if (this.state.weather) {
-      temperature = <p>{this.convertKelvinToCelsius(this.state.weather.infoWeather.temp)}°C</p>;
-    }
+  renderWithWeather(weather: ICurrentWeather) {
+    return (
+      <div className="CurrentWeather">
+        {<p>Current city is: {this.props?.currentCity?.nm}</p>}
+        {<p>{this.convertKelvinToCelsius(weather.infoWeather.temp)}°C</p>}
+        {<Icon iconName={weather.weather.id} />}
+      </div>
+    );
+  }
+
+  render() {
+    const content = this.state.weather ? this.renderWithWeather(this.state.weather) : this.renderNoCity();
 
     return (
       <div className="CurrentWeather">
-        {paragraph}
-        {temperature}
+        {content}
       </div>
     );
   }
