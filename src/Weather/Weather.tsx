@@ -4,19 +4,19 @@ import './Weather.css';
 
 import CitySelector from './CitySelector/CitySelector';
 import CurrentWeather from './CurrentWeather/CurrentWeather';
-import { City } from './interfaces';
+import { ICity } from './interfaces';
 
 interface WeatherProps {
 }
 
 interface WeatherState {
-  selectedCity?: City;
+  selectedCity?: ICity;
 }
 
 class Weather extends Component<WeatherProps, WeatherState> {
   state: WeatherState = {}
 
-  onCityChange = (selectedCity: City) => {
+  onCityChange = (selectedCity: ICity) => {
     this.setState({selectedCity});
   }
 

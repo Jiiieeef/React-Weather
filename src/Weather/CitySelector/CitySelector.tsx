@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 
 import './CitySelector.css';
-import { City } from '../interfaces';
+import { ICity } from '../interfaces';
 
 const cities = require('../../cities-fr.json');
 
 interface CitySelectorProps {
-  onCityChange: (selectedCity: City) => void;
+  onCityChange: (selectedCity: ICity) => void;
 }
 
 class CitySelector extends Component<CitySelectorProps> {
@@ -14,7 +14,7 @@ class CitySelector extends Component<CitySelectorProps> {
     selectedCityId: '0'
   }
 
-  cityOption(city: any) {
+  cityOption(city: ICity) {
     return (<option key={city.id} value={city.id}>{city.nm}</option>);
   }
 
@@ -29,7 +29,7 @@ class CitySelector extends Component<CitySelectorProps> {
 
   onCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({selectedCityId: event.target.value});
-    this.props.onCityChange(cities.find((city: City) => +city.id === +event.target.value));
+    this.props.onCityChange(cities.find((city: ICity) => +city.id === +event.target.value));
   }
 
   render() {
