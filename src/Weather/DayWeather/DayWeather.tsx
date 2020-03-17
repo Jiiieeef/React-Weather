@@ -4,6 +4,8 @@ import { Icon } from '../Icon/Icon';
 import { IForecastWeather } from '../interfaces';
 import { convertKelvinToCelsius } from '../../services/converter';
 
+import './DayWeather.scss';
+
 interface DayWeatherProps {
   dayWeather: IForecastWeather;
 }
@@ -15,10 +17,10 @@ export const DayWeather = (props: DayWeatherProps) => {
 
   return (
     <div className="DayWeather">
-      <p>{getDay(props.dayWeather.date)}</p>
+      <span className="date">{getDay(props.dayWeather.date)}</span>
       <Icon iconName={props.dayWeather.weather.id} />
-      <div>{convertKelvinToCelsius(props.dayWeather.infoWeather.temp_min)}°</div>
-      <div>{convertKelvinToCelsius(props.dayWeather.infoWeather.temp_max)}°</div>
+      <span>{convertKelvinToCelsius(props.dayWeather.infoWeather.temp_min)}°</span>
+      <span>{convertKelvinToCelsius(props.dayWeather.infoWeather.temp_max)}°</span>
     </div>
   );
 };

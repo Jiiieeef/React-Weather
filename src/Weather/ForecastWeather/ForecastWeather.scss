@@ -1,10 +1,15 @@
 .ForecastWeather {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
 
   .DayWeather {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 5px;
+    min-width: 25%;
+    text-align: center;
   }
 }

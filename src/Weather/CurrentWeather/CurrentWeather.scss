@@ -1,0 +1,17 @@
+.CurrentWeather {
+  margin: 10px 0;
+
+  .weather {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > * {
+      margin: 5px 0;
+    }
+
+    .temperature {
+      font-weight: bold;
+    }
+  }
+}

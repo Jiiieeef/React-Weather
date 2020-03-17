@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import './Weather.css';
+import './Weather.scss';
 
 import CitySelector from './CitySelector/CitySelector';
 import CurrentWeather from './CurrentWeather/CurrentWeather';
@@ -43,7 +43,7 @@ class Weather extends Component<WeatherProps, WeatherState> {
 
     return (
       <div className="Weather">
-        <h2>Météo</h2>
+        <h2>Weather</h2>
         <CitySelector onCityChange={this.onCityChange}/>
         {currentWeather}
         {forecastWeather}

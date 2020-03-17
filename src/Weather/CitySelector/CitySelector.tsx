@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import './CitySelector.css';
+import './CitySelector.scss';
 import { ICity } from '../interfaces';
 
 const cities = require('../../cities-fr.json');

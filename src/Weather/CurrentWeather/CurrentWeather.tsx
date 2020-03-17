@@ -4,6 +4,8 @@ import { Icon } from "../Icon/Icon";
 import { ICity, ICurrentWeather } from '../interfaces';
 import { convertKelvinToCelsius } from "../../services/converter";
 
+import './CurrentWeather.scss';
+
 interface CurrentWeatherProps {
   currentCity: ICity;
   currentWeather: ICurrentWeather;
@@ -16,9 +18,9 @@ class CurrentWeather extends Component<CurrentWeatherProps, CurrentWeatherState>
 
   renderWithWeather(weather: ICurrentWeather) {
     return (
-      <div className="CurrentWeather">
-        {<p>Current city is: {this.props.currentCity.nm}</p>}
-        {<p>{convertKelvinToCelsius(weather.infoWeather.temp)}°C</p>}
+      <div className="weather">
+        {<span className="city-name">{this.props.currentCity.nm}</span>}
+        {<span className="temperature">{convertKelvinToCelsius(weather.infoWeather.temp)}°C</span>}
         {<Icon iconName={weather.weather.id} />}
       </div>
     );
