@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { Icon } from "../Icon/Icon";
 import { ICity, ICurrentWeather } from '../interfaces';
+import { convertKelvinToCelsius } from "../../services/converter";
 
 interface CurrentWeatherProps {
   currentCity: ICity;
@@ -13,15 +14,11 @@ interface CurrentWeatherState {
 
 class CurrentWeather extends Component<CurrentWeatherProps, CurrentWeatherState> {
 
-  convertKelvinToCelsius(tempKelvin: string) {
-    return parseFloat('' + (parseInt(tempKelvin, 10) - 273.15)).toFixed(2);
-  }
-
   renderWithWeather(weather: ICurrentWeather) {
     return (
       <div className="CurrentWeather">
         {<p>Current city is: {this.props.currentCity.nm}</p>}
-        {<p>{this.convertKelvinToCelsius(weather.infoWeather.temp)}°C</p>}
+        {<p>{convertKelvinToCelsius(weather.infoWeather.temp)}°C</p>}
         {<Icon iconName={weather.weather.id} />}
       </div>
     );

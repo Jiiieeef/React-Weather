@@ -1,3 +1,4 @@
+import Weather from './Weather';
 export interface ICity {
   id: string;
   nm: string;
@@ -26,4 +27,11 @@ export interface ICurrentWeather {
   name: string;
   weather: IWeather;
   infoWeather: IInfoWeather;
+}
+
+export interface IForecastWeather {
+  dt: number;
+  weather: IWeather;
+  infoWeather: IInfoWeather;
+  date: string;
 }
