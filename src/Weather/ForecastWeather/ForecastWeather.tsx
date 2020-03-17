@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 
-import { Icon } from "../Icon/Icon";
 import { ICity, IForecastWeather } from '../interfaces';
-import { convertKelvinToCelsius } from "../../services/converter";
+import { DayWeather } from "../DayWeather/DayWeather";
 
 import './ForecastWeather.scss';
 
@@ -18,16 +17,16 @@ class ForecastWeather extends Component<ForecastWeatherProps, ForecastWeatherSta
   state: ForecastWeatherState = {}
 
   renderForecast() {
-    return this.props.forecastWeather.slice(0, 3).map((forecast: IForecastWeather) => {
-      return (
-        <div key={forecast.dt}>
-          <p>{forecast.date}</p>
-          <Icon iconName={forecast.weather.id} />
-          <div>{convertKelvinToCelsius(forecast.infoWeather.temp_min)}</div>
-          <div>{convertKelvinToCelsius(forecast.infoWeather.temp_max)}</div>
-        </div>
-      );
-    });
+    const curentDay = new Date().getDate();
+    return this.props.forecastWeather
+      .filter((forecast: IForecastWeather) => {
+        const date = new Date(forecast.date);
+        return date.getDate() !== curentDay && date.getHours() === 12;
+      })
+      .slice(0, 3)
+      .map((forecast: IForecastWeather) => {
+        return (<DayWeather dayWeather={forecast} key={forecast.dt}/>);
+      });
   }
 
   render() {
