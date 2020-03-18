@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
 import './Weather.scss';
 
@@ -9,48 +9,46 @@ import { ICity, ICurrentWeather, IForecastWeather } from './interfaces';
 
 import { getCurrentWeather, getCurrentForecast } from '../services/WeatherService';
 
-interface WeatherProps {
-}
-
 interface WeatherState {
   selectedCity?: ICity;
   currentWeather?: ICurrentWeather
   forecastWeather?: IForecastWeather[];
 }
 
-class Weather extends Component<WeatherProps, WeatherState> {
-  state: WeatherState = {}
+const Weather = () => {
+  const [selectedCity, setSelectedCity] = useState<ICity>();
+  const [currentWeather, setCurrentWeather] = useState<ICurrentWeather>();
+  const [forecastWeather, setForecastWeather] = useState<IForecastWeather[]>();
 
-  onCityChange = async (selectedCity: ICity) => {
-    const currentWeather = await getCurrentWeather(selectedCity);
-    const forecastWeather = await getCurrentForecast(selectedCity);
+  const onCityChange = async (_selectedCity: ICity) => {
+    const _currentWeather = await getCurrentWeather(_selectedCity);
+    const _forecastWeather = await getCurrentForecast(_selectedCity);
 
-    this.setState({selectedCity, currentWeather, forecastWeather});
-  }
+    setSelectedCity(_selectedCity);
+    setCurrentWeather(_currentWeather);
+    setForecastWeather(_forecastWeather);
+  };
 
-  render() {
-    let currentWeather, forecastWeather;
+  let currentWeatherTpl, forecastWeatherTpl;
 
-    if (this.state.selectedCity) {
-      if (this.state.currentWeather) {
-        currentWeather = <CurrentWeather currentCity={this.state.selectedCity} currentWeather={this.state.currentWeather} />
-      }
-
-      if (this.state.forecastWeather) {
-        forecastWeather = <ForecastWeather currentCity={this.state.selectedCity} forecastWeather={this.state.forecastWeather} />
-      }
+  if (selectedCity) {
+    if (currentWeather) {
+      currentWeatherTpl = <CurrentWeather currentCity={selectedCity} currentWeather={currentWeather} />
     }
 
-    return (
-      <div className="Weather">
-        <h2>Weather</h2>
-        <CitySelector onCityChange={this.onCityChange}/>
-        {currentWeather}
-        {forecastWeather}
-
-      </div>
-    );
+    if (forecastWeather) {
+      forecastWeatherTpl = <ForecastWeather currentCity={selectedCity} forecastWeather={forecastWeather} />
+    }
   }
+
+  return (
+    <div className="Weather">
+      <h2>Weather</h2>
+      <CitySelector onCityChange={onCityChange} />
+      {currentWeatherTpl}
+      {forecastWeatherTpl}
+    </div>
+  );
 }
 
 export default Weather;

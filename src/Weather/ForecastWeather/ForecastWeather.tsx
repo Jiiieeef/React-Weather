@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import { ICity, IForecastWeather } from '../interfaces';
 import { DayWeather } from "../DayWeather/DayWeather";
@@ -10,15 +10,10 @@ interface ForecastWeatherProps {
   forecastWeather: any;
 }
 
-interface ForecastWeatherState {
-}
-
-class ForecastWeather extends Component<ForecastWeatherProps, ForecastWeatherState> {
-  state: ForecastWeatherState = {}
-
-  renderForecast() {
+const ForecastWeather = (props: ForecastWeatherProps) => {
+  const renderForecast = () => {
     const curentDay = new Date().getDate();
-    return this.props.forecastWeather
+    return props.forecastWeather
       .filter((forecast: IForecastWeather) => {
         const date = new Date(forecast.date);
         return date.getDate() !== curentDay && date.getHours() === 12;
@@ -27,15 +22,13 @@ class ForecastWeather extends Component<ForecastWeatherProps, ForecastWeatherSta
       .map((forecast: IForecastWeather) => {
         return (<DayWeather dayWeather={forecast} key={forecast.dt}/>);
       });
-  }
+  };
 
-  render() {
-    return (
-      <div className="ForecastWeather">
-        {this.renderForecast()}
-      </div>
-    );
-  }
+  return (
+    <div className="ForecastWeather">
+      {renderForecast()}
+    </div>
+  );
 }
 
 export default ForecastWeather;
