@@ -9,12 +9,6 @@ import { ICity, ICurrentWeather, IForecastWeather } from './interfaces';
 
 import { getCurrentWeather, getCurrentForecast } from '../services/WeatherService';
 
-interface WeatherState {
-  selectedCity?: ICity;
-  currentWeather?: ICurrentWeather
-  forecastWeather?: IForecastWeather[];
-}
-
 const Weather = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedCity, setSelectedCity] = useState<ICity>();
@@ -58,8 +52,6 @@ const Weather = () => {
       </React.Fragment>
     );
   };
-
-
 
   return (
     <div className="Weather">

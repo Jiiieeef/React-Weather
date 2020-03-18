@@ -9,7 +9,7 @@ interface CitySelectorProps {
   onCityChange: (selectedCity: ICity) => void;
 }
 
-const CitySelector = (props: CitySelectorProps) => {
+const CitySelector: React.FC<CitySelectorProps> = (props: CitySelectorProps) => {
   const [selectedCityId, setSelectedCityId] = useState<string>('0');
 
   const cityOption = (city: ICity) => {

@@ -11,10 +11,7 @@ interface CurrentWeatherProps {
   currentWeather: ICurrentWeather;
 }
 
-interface CurrentWeatherState {
-}
-
-const CurrentWeather = (props: CurrentWeatherProps) => {
+const CurrentWeather: React.FC<CurrentWeatherProps> = (props: CurrentWeatherProps) => {
 
   const renderWithWeather = (weather: ICurrentWeather) => {
     return (
