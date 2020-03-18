@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
 import './CitySelector.scss';
 import { ICity } from '../interfaces';
@@ -9,36 +9,32 @@ interface CitySelectorProps {
   onCityChange: (selectedCity: ICity) => void;
 }
 
-class CitySelector extends Component<CitySelectorProps> {
-  state = {
-    selectedCityId: '0'
-  }
+const CitySelector: React.FC<CitySelectorProps> = (props: CitySelectorProps) => {
+  const [selectedCityId, setSelectedCityId] = useState<string>('0');
 
-  cityOption(city: ICity) {
+  const cityOption = (city: ICity) => {
     return (<option key={city.id} value={city.id}>{city.nm}</option>);
   }
 
-  citiesSelect = () => {
+  const citiesSelect = () => {
     return (
-      <select onChange={this.onCityChange} value={this.state.selectedCityId}>
+      <select onChange={onCityChange} value={selectedCityId}>
         <option value='0' disabled>Select a city</option>
-        {cities.map(this.cityOption.bind(this))}
+        {cities.map(cityOption)}
       </select>
       );
   }
 
-  onCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    this.setState({selectedCityId: event.target.value});
-    this.props.onCityChange(cities.find((city: ICity) => +city.id === +event.target.value));
+  const onCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCityId(event.target.value);
+    props.onCityChange(cities.find((city: ICity) => +city.id === +event.target.value));
   }
 
-  render() {
-    return (
-      <div className="CitySelector">
-        {this.citiesSelect()}
-      </div>
-    );
-  }
+  return (
+    <div className="CitySelector">
+      {citiesSelect()}
+    </div>
+  );
 }
 
 export default CitySelector;

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import { Icon } from "../Icon/Icon";
 import { ICity, ICurrentWeather } from '../interfaces';
@@ -11,28 +11,23 @@ interface CurrentWeatherProps {
   currentWeather: ICurrentWeather;
 }
 
-interface CurrentWeatherState {
-}
+const CurrentWeather: React.FC<CurrentWeatherProps> = (props: CurrentWeatherProps) => {
 
-class CurrentWeather extends Component<CurrentWeatherProps, CurrentWeatherState> {
-
-  renderWithWeather(weather: ICurrentWeather) {
+  const renderWithWeather = (weather: ICurrentWeather) => {
     return (
       <div className="weather">
-        {<span className="city-name">{this.props.currentCity.nm}</span>}
+        {<span className="city-name">{props.currentCity.nm}</span>}
         {<span className="temperature">{convertKelvinToCelsius(weather.infoWeather.temp)}°C</span>}
         {<Icon iconName={weather.weather.id} />}
       </div>
     );
-  }
+  };
 
-  render() {
-    return (
-      <div className="CurrentWeather">
-        {this.renderWithWeather(this.props.currentWeather)}
-      </div>
-    );
-  }
+  return (
+    <div className="CurrentWeather">
+      {renderWithWeather(props.currentWeather)}
+    </div>
+  );
 }
 
 export default CurrentWeather;
